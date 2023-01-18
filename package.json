@@ -10,7 +10,7 @@
     "heroku-postbuild": "node utils/seed.js"
   },
   "repository": {
-    "type": "git",
+    "type": "git"
 
   },
   "keywords": [],
