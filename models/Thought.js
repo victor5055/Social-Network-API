@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 //Child document or subdocuments embedded into parent document 
 const reactionSchema = new mongoose.Schema({
@@ -26,9 +27,18 @@ const thoughtSchema = new mongoose.Schema({
 });
 
 // virtual which retrieves the length of the user's friends on query
+thoughtSchema.pre('save', function(next) {
+    const thoughtId = this._id;
+    User.findOne({ username: this.username }, function (err, user){
+      if (err) return handleError(err);
+      User.findByIdAndUpdate(user._id, { $push: { thoughts: thoughtId } }, next);
+    });
+  });
+
+  // virtual retrieves the length of the user's friends on query
 thoughtSchema.virtual('reactionCount').get(function() {
-  return reactions.length;
-});
+    return reactions.length;
+  });
 
 //Using mongoose.model() to create a new MongoDB collection
 //and allows you to interact with is using the 'User' model
