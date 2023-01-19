@@ -12,7 +12,15 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+  //get a single user in User document for social-networkDB collection
+async getOneUser(req, res) {
+    try {
+      const userData = await User.findOne({ _id: req.params.userId });
+      res.status(200).json(userData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
   //create users for social-networkDB collection
   async createUser(req, res) {
     try{
@@ -23,14 +31,23 @@ module.exports = {
     }
   },
 
-
+//update a users in User document for social-networkDB collection
+async updateUser(req, res) {
+    try{
+      const userData = await User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true });
+      if (!userData) return res.status(404).json('User not found');
+      res.status(200).json(`User with id ${req.params.userId} was updated.`);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 //delete a user in User document
     async deleteUser(req, res) {
     try{
-        const userId = ObjectId(req.body.id)
-        const userData = await User.findOneAndRemove(userId);
+       
+        const userData = await User.findOneAndRemove(req.params.userId);
         if (!userData) return res.status(404).json('User not found');
-        res.status(200).json(`User with id ${userId} was deleted.`);
+        res.status(200).json(`User with id ${req.params,userId} was deleted.`);
     } catch (err) {
       res.status(500).json(err);
     }
