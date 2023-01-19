@@ -30,7 +30,13 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('friendCount').get(function() {
     return friends.length;
   });
-  
+  //Use the 'pre' middleware to remove associated thoughts when a user is removed
+// userSchema.pre('remove', async function(next) {
+//   await Thought.deleteMany({ user: this._id });
+//   next();
+// });
+
+
   //Using mongoose.model() to compile a model 
   const User = mongoose.model('User', userSchema);
 

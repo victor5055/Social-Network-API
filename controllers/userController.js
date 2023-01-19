@@ -3,7 +3,7 @@ const { ObjectId } = require('mongoose').Types;
 const { User } = require('../models'); 
 
 module.exports = {
-  //get all users social-mediaDB collection
+  //get all users social-networkDB collection
   async getUsers(req, res) {
     try {
       const userData = await User.find();
@@ -13,7 +13,7 @@ module.exports = {
     }
   },
 
-  //create users for social-mediaDB collection
+  //create users for social-networkDB collection
   async createUser(req, res) {
     try{
       const userData = await User.create(req.body);
