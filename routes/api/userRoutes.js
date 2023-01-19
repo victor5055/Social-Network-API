@@ -18,5 +18,5 @@ router
 
 router.route('/:userId').get(getOneUser).put(updateUser).delete(deleteUser);
 
-
+//Export router
 module.exports = router;
