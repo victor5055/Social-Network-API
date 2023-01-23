@@ -33,7 +33,7 @@ async getOneUser(req, res) {
 //update a users in User document for social-networkDB collection
 async updateUser(req, res) {
     try{
-      const userData = await User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true });
+      const userData = await User.findByIdAndUpdate({ _id: req.params.userId }, req.body, { new: true });
       if (!userData) return res.status(404).json('User not found');
       res.status(200).json(`User with id ${req.params.userId} was updated.`);
     } catch (err) {
@@ -43,8 +43,7 @@ async updateUser(req, res) {
 //delete a user in User document
     async deleteUser(req, res) {
     try{
-       
-        const userData = await User.findfindById(req.params.userId);
+       const userData = await User.findById(req.params.userId);
         if (!userData) return res.status(404).json('User not found');
         res.status(200).json(`User with id ${req.params,userId} was deleted.`);
     } catch (err) {
