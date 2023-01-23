@@ -37,6 +37,7 @@ connection.once('open', async () => {
   
     const seededThoughts = await Thought.create(thoughts);
     console.log(`Created ${thoughts.length} thoughts.`)
+    
   console.info('🌱 Seeding complete! 🌱');
   process.exit(0);
 });

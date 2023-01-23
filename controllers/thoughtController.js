@@ -15,9 +15,8 @@ module.exports = {
 //get single thought in Thought document for social-networkDB collection
 async getOneThought(req, res) {
     try {
-      const thoughtData = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },req.body, { new: true });
-      if (!thoughtData) return res.status(404).json('Thought not found');
-      res.status(200).json(`Thought with id ${req.params.thoughtId} was updated.`);
+      const thoughtData = await Thought.findOne({ _id: req.params.thoughtId });
+      res.status(200).json(thoughtData);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -42,6 +41,17 @@ async getOneThought(req, res) {
     }
   },
 
+   //delete a user in User document for social-networkDB collection
+   async deleteThought(req, res) {
+    try{
+      const thoughtId = ObjectId(req.body.id);
+      const thoughtData = await Thought.findOneAndDelete(req.params.thoughtId);
+      if (!thoughtData) return res.status(404).json('Thought not found');
+      res.status(200).json(`Thought with id ${req.params.thoughtId} was deleted.`);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
    //create a reaction in Thought document for social-networkDB collection
    async createReaction(req, res) {
     try{
@@ -57,13 +67,15 @@ async getOneThought(req, res) {
       res.status(500).json(err);
     }
   },
-  //delete a user in User document for social-networkDB collection
-  async deleteThought(req, res) {
+  //delete a reaction in thought document for social-networkDB collection
+  async deleteReaction(req, res) {
     try{
-      const thoughtId = ObjectId(req.body.id);
-      const thoughtData = await Thought.findOneAndRemove(thoughtId);
-      if (!thoughtData) return res.status(404).json('Thought not found');
-      res.status(200).json(`Thought with id ${thoughtId} was deleted.`);
+      const thoughtData = await Thought.findById(req.params.thoughtId);
+      if (!thoughtData) return res.status(404).json(`Thought not found.`);
+      thoughtData.reactions.pull({ _id: req.body._id });
+
+      await thoughtData.save();
+      res.status(200).json(`Reaction deleted.`);
     } catch (err) {
       res.status(500).json(err);
     }
