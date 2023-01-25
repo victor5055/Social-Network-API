@@ -1,7 +1,7 @@
 # Social-Network-API
 18 NoSQL: Social Network API
 
-[Deployed Heroku App]()
+[Deployed Video](https://drive.google.com/file/d/1CPZKOzwt33M2e__RmRgPdhvYIA1P1Ev_/view)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Table of Contents
@@ -39,10 +39,16 @@ none
 
 ## Installation
 ###### [Back to Table of Contents](#Table-of-Contents)
+The application is invoked using the following commands: $ npm run seed $ npm start
 
-To clone the repo: 
+The following npm packages are required:
+
+mongoose ^6.0.13
+express ^4.17.1
+validator ^13.7.0
+
+To clone the repo: git@github.com:victor5055/Social-Network-API.git
 git clone 
-
 ## Overview: What Was Accomplished!
 ### Workflow [Back to Table of Contents](#Table-of-Contents)
 
@@ -50,7 +56,7 @@ git clone
 
 ### Screenshots (Building this application)
 ###### [Back to Table of Contents](#Table-of-Contents)
-![](./)
+![](./in.PNG)
 
     
 
